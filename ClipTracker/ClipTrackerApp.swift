@@ -29,9 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         AppDelegate.instance = self
         
-        statusBarItem.button?.image = NSImage(named: NSImage.Name("square.and.arrow.up"))
-        //statusBarItem.button?.title = "CT"
-        statusBarItem.button?.imagePosition = .imageLeading
+        statusBarItem.button?.title = "📋"
         statusBarItem.menu = menu.createMenu()
         
     }

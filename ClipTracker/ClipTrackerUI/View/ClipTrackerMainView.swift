@@ -8,16 +8,32 @@
 import SwiftUI
 
 struct ClipTrackerMainView: View {
+    @ObservedObject var viewModel: ViewModel
+    
+    
     var body: some View {
         VStack{
-            copyLog(content: Text("LOnffdgdfgfhbdh jd"))
-            copyLog(content: Text("Copy me 2"))
-            copyLog(content: Text("Copy me 3"))
-            copyLog(content: Text("Copy me 4"))
-            copyLog(content: Text("Copy me 5"))
+            Text("ClipTracker Log (\(viewModel.clipTracker.log.count))")
+                .padding(.vertical, 2)
+                .bold()
+            
+            ForEach(viewModel.clipTracker.log) { log in
+                copyLog(content: log.content) {
+                    withAnimation {
+                        viewModel.copyLogToClipboard(log.content)
+                    }
+                }
+                .id(log.content)
+            }
+            .animation(.default, value: viewModel.clipTracker.log)
+            
+            Spacer()
             Divider().saturation(0.1)
             
             Button(action: {
+                withAnimation {
+                    viewModel.reset()
+                }
                 print("Reset all")
             }) {
                 Text("Reset all")
@@ -32,17 +48,22 @@ struct ClipTrackerMainView: View {
 
 
 struct copyLog: View {
-    
-    let content: Text
+    let content: String
     @State var isHovered: Bool = false
+    let action: () -> Void
     
     var body: some View {
+            
         Button(action: {
-            print("Copy")
+            action()
+            print("Copied: \(content)")
             }) {
-                HStack(spacing: 20) {
-                    content.lineLimit(1)
+                HStack {
+                    Text(content)
+                        .lineLimit(1)
+                    Spacer()
                     Image(systemName: "document.on.clipboard")
+                        .padding(.vertical, 3)
                 }
         }
         .padding(.horizontal, 10)
@@ -55,7 +76,7 @@ struct copyLog: View {
             }
             print("Hovered")
         }
-        
+        .padding(.horizontal, 10)
     }
 }
 
@@ -63,5 +84,6 @@ struct copyLog: View {
 
 
 #Preview {
-    ClipTrackerMainView()
+    
+    ClipTrackerMainView(viewModel: ViewModel())
 }

@@ -21,7 +21,6 @@ class ClipTrackerMenu: NSObject {
         menu.addItem(menuItem)
         menu.addItem(NSMenuItem.separator())
         
-        
         return menu
     }
 }

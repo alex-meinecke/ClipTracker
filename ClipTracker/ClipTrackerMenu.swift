@@ -14,7 +14,7 @@ class ClipTrackerMenu: NSObject {
     func createMenu() -> NSMenu {
         let clipTrackerView = ClipTrackerMainView(viewModel: ViewModel())
         let topView = NSHostingController(rootView: clipTrackerView)
-        topView.view.frame.size = NSSize(width: 225, height: 250)
+        topView.view.frame.size = NSSize(width: 225, height: 270)
         
         let menuItem = NSMenuItem()
         menuItem.view = topView.view

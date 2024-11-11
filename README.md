@@ -40,5 +40,3 @@ Feel free to open issues or submit pull requests if you have any ideas for addit
 ## License
 
 This project is licensed under the MIT License. See LICENSE for more details.
-
-(This Readme is AI generated)
